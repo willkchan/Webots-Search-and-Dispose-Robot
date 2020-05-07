@@ -44,7 +44,6 @@ char touch_names[4][10] = {"touch1", "touch2", "touch3", "touch4"};
 typedef enum {WANDERING, POSITIONING, EXTRACTING, RETURNING, DISPOSING} states;
 double grabAngle = 0;
 
-
 int isClose(double *distanceValues) {
     if (distanceValues[LEFT] < 950.0 || distanceValues[RIGHT] < 950.0 || distanceValues[MIDDLE] < 950.0) {
         return 1;
