@@ -3,7 +3,7 @@ WorldInfo {
 }
 Viewpoint {
   orientation -0.4882711589401488 0.7736606162481928 0.4037827710709192 1.6373751990749705
-  position 1.9584045110979595 3.693328980145957 -0.09528921868775561
+  position 1.9123533291790042 3.122275703151598 1.0776547044362275
 }
 TexturedBackground {
 }
@@ -52,8 +52,8 @@ DEF BOX Solid {
   }
   radarCrossSection 1
 }
-Solid {
-  translation -0.31247 0.1 0.656444
+DEF BALL Solid {
+  translation 0.636626 0.1 0.51381
   children [
     DEF BALL Shape {
       appearance PBRAppearance {
@@ -61,12 +61,71 @@ Solid {
         metalness 0
       }
       geometry Sphere {
-        radius 0.05
+        radius 0.04
       }
     }
   ]
   name "solid(2)"
-  boundingObject USE BOX
+  boundingObject USE BALL
+  physics Physics {
+  }
+  radarCrossSection 1
+}
+DEF BALL Solid {
+  translation 0.232139 0.1 -0.584142
+  children [
+    DEF BALL Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.3 0
+        metalness 0
+      }
+      geometry Sphere {
+        radius 0.04
+      }
+    }
+  ]
+  name "solid(3)"
+  boundingObject USE BALL
+  physics Physics {
+  }
+  radarCrossSection 1
+}
+DEF CAPSULE Solid {
+  translation -0.415161 0.3 0.359342
+  children [
+    DEF CAPSULE Shape {
+      appearance PBRAppearance {
+        baseColor 0 1 0.4
+        metalness 0
+      }
+      geometry Capsule {
+        height 0.04
+        radius 0.03
+      }
+    }
+  ]
+  name "solid(4)"
+  boundingObject USE CAPSULE
+  physics Physics {
+  }
+  radarCrossSection 1
+}
+DEF CAPSULE Solid {
+  translation -0.126104 0.3 0.649743
+  children [
+    DEF CAPSULE Shape {
+      appearance PBRAppearance {
+        baseColor 0 1 0.4
+        metalness 0
+      }
+      geometry Capsule {
+        height 0.04
+        radius 0.03
+      }
+    }
+  ]
+  name "solid(5)"
+  boundingObject USE CAPSULE
   physics Physics {
   }
   radarCrossSection 1
@@ -92,8 +151,8 @@ DEF TRASHBIN SolidPipe {
   }
 }
 Robot {
-  translation -0.918609 4.44086e-16 -0.791954
-  rotation 0 1 0 3.08881
+  translation -0.766032 -1.77636e-15 0.674561
+  rotation 0 1 0 1.58347
   children [
     Transform {
       translation 0 0.0415 0
@@ -157,7 +216,7 @@ Robot {
       ]
       endPoint Solid {
         translation -0.05000068743730525 0.025811031362222292 4.133476380438646e-07
-        rotation -0.07382039037636988 0.07382286986036547 0.9945354361963481 1.5762530595880275
+        rotation -0.07382039037636985 0.07382286986036544 0.9945354361963479 1.5762530595880277
         children [
           USE WHEEL
         ]
