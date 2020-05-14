@@ -1,0 +1,756 @@
+#VRML_SIM R2020a utf8
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.1524983309380834 0.9837509264737151 0.09475428076454462 1.1266760809596004
+  position 1.894163639665303 0.5606373578162872 0.7070701542113067
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 2 2
+  wallHeight 0.2
+}
+DEF BOX Solid {
+  translation 0.888719 0.434664 -0.528678
+  rotation 1 0 0 4.6928e-06
+  children [
+    DEF BOX Shape {
+      appearance PBRAppearance {
+        baseColor 0.2 0 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.05 0.05 0.05
+      }
+    }
+  ]
+  boundingObject USE BOX
+  physics Physics {
+    density -1
+    mass 0.01
+  }
+  radarCrossSection 1
+}
+DEF BOX Solid {
+  translation -0.624947 0.0326735 -0.130149
+  children [
+    DEF BOX Shape {
+      appearance PBRAppearance {
+        baseColor 0.2 0 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.06 0.06 0.06
+      }
+    }
+  ]
+  name "solid(1)"
+  boundingObject USE BOX
+  physics Physics {
+    density -1
+    mass 0.01
+  }
+  radarCrossSection 1
+}
+DEF BALL Solid {
+  translation 0.636626 0.1 0.51381
+  children [
+    DEF BALL Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.3 0
+        metalness 0
+      }
+      geometry Sphere {
+        radius 0.04
+      }
+    }
+  ]
+  name "solid(2)"
+  boundingObject USE BALL
+  physics Physics {
+    mass 0.5
+  }
+  radarCrossSection 1
+}
+DEF BALL Solid {
+  translation 0.232139 0.1 -0.584142
+  children [
+    DEF BALL Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.3 0
+        metalness 0
+      }
+      geometry Sphere {
+        radius 0.04
+      }
+    }
+  ]
+  name "solid(3)"
+  boundingObject USE BALL
+  physics Physics {
+    density -1
+    mass 0.5
+  }
+  radarCrossSection 1
+}
+DEF CAPSULE Solid {
+  translation -0.415161 0.3 0.359342
+  children [
+    DEF CAPSULE Shape {
+      appearance PBRAppearance {
+        baseColor 0 1 0.4
+        metalness 0
+      }
+      geometry Capsule {
+        height 0.04
+        radius 0.03
+      }
+    }
+  ]
+  name "solid(4)"
+  boundingObject USE CAPSULE
+  physics Physics {
+  }
+  radarCrossSection 1
+}
+DEF CAPSULE Solid {
+  translation -0.126104 0.3 0.649743
+  children [
+    DEF CAPSULE Shape {
+      appearance PBRAppearance {
+        baseColor 0 1 0.4
+        metalness 0
+      }
+      geometry Capsule {
+        height 0.04
+        radius 0.03
+      }
+    }
+  ]
+  name "solid(5)"
+  boundingObject USE CAPSULE
+  physics Physics {
+  }
+  radarCrossSection 1
+}
+DEF TRASHBIN SolidPipe {
+  translation 0.00531645 0.08 -0.00403662
+  height 0.15
+  radius 0.11
+  thickness 0.001
+  appearance PBRAppearance {
+    baseColor 1 1 0
+    baseColorMap ImageTexture {
+      url [
+        "textures/tagged_wall.jpg"
+      ]
+    }
+    roughness 1
+    metalness 0
+  }
+  physics Physics {
+    density -1
+    mass 30
+  }
+}
+Robot {
+  translation -0.531952 -1.22126e-15 -0.542446
+  rotation 0 -1 0 -1.2169553071795862
+  children [
+    Transform {
+      translation 0 0.0415 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            roughness 1
+            metalness 0
+          }
+          geometry DEF BODY Cylinder {
+            height 0.08
+            radius 0.045
+          }
+        }
+      ]
+    }
+    DEF WHEEL1 HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0 0.025 0
+      }
+      device [
+        PositionSensor {
+          name "wheel_lf_pos"
+        }
+        RotationalMotor {
+          name "wheel_lf"
+        }
+      ]
+      endPoint Solid {
+        translation 0.05000054844245362 0.025810750625136054 1.2054995810402694e-06
+        rotation -0.07144062367427365 -0.07102642489304543 -0.9949128023379453 1.5699817940296577
+        children [
+          DEF WHEEL Shape {
+            appearance PBRAppearance {
+              baseColor 1 0.5 0
+              metalness 0
+            }
+            geometry Cylinder {
+              height 0.01
+              radius 0.025
+              subdivision 24
+            }
+          }
+        ]
+        boundingObject USE WHEEL
+        physics DEF Physics_wheel Physics {
+        }
+      }
+    }
+    DEF WHEEL2 HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0 0.025 0
+      }
+      device [
+        PositionSensor {
+          name "wheel_rt_pos"
+        }
+        RotationalMotor {
+          name "wheel_rt"
+        }
+      ]
+      endPoint Solid {
+        translation -0.05000068743730525 0.025811031362222292 4.133476380449217e-07
+        rotation -0.0738203903763699 0.07382286986036544 0.9945354361963479 1.5762530595880275
+        children [
+          USE WHEEL
+        ]
+        name "solid(1)"
+        boundingObject USE WHEEL
+        physics USE Physics_wheel
+      }
+    }
+    DistanceSensor {
+      translation -0.02 0.03 0.04
+      rotation 0 1 0 -2.0944
+      children [
+        DEF DS_SENSOR Shape {
+          appearance PBRAppearance {
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "ds_right"
+      aperture 1.578
+    }
+    DistanceSensor {
+      translation 0.02 0.03 0.04
+      rotation 0 1 0 -1.0472
+      children [
+        USE DS_SENSOR
+      ]
+      name "ds_left"
+      aperture 1.578
+    }
+    DistanceSensor {
+      translation 0 0.04 0.04
+      rotation 0 1 0 -1.5707796
+      children [
+        USE DS_SENSOR
+      ]
+      name "ds_middle"
+      aperture 1.578
+    }
+    Radar {
+      translation 0 0.03 0.045
+      rotation 0 1 0 3.141592653
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.4 0.4 0.4
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      minRange 0
+      maxRange 0.15
+      horizontalFieldOfView 2
+      verticalFieldOfView 0.2
+      occlusion TRUE
+    }
+    GPS {
+      translation 0 0.07 0.04
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.2 0.2
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+    }
+    Compass {
+      translation 0 0.03 0
+    }
+    DEF CRANE Transform {
+      children [
+        DEF HINGE1 HingeJoint {
+          jointParameters HingeJointParameters {
+            anchor 0 0.17 0
+          }
+          device [
+            RotationalMotor {
+              name "hinge1"
+            }
+          ]
+          endPoint Solid {
+            translation -7.357872644497796e-09 0.1700004181171528 0.00033245832731638796
+            rotation 3.159285881930478e-07 -3.0298821241938217e-07 0.9999999999999042 1.5707996939035977
+            children [
+              DEF HINGE2 HingeJoint {
+                jointParameters HingeJointParameters {
+                  axis 0 -1 0
+                  anchor 0.12 0 0
+                }
+                device [
+                  RotationalMotor {
+                    name "hinge2"
+                  }
+                ]
+                endPoint Solid {
+                  translation 0.12 0 0
+                  rotation 1 2.5363265691709136e-17 -2.6814732957356495e-09 3.141592653589793
+                  children [
+                    DEF GRIPPER Transform {
+                      translation 0.1 0 0
+                      rotation 0 0 1 1.5707996938995747
+                      children [
+                        DEF PALM Solid {
+                          children [
+                            DEF FINGERS Group {
+                              children [
+                                DEF FINGER1 HingeJoint {
+                                  jointParameters HingeJointParameters {
+                                    axis 0 0 1
+                                    anchor -0.05 0 0
+                                  }
+                                  device [
+                                    RotationalMotor {
+                                      name "finger1"
+                                    }
+                                  ]
+                                  endPoint Solid {
+                                    translation -0.05 0 0
+                                    rotation -1 3.535389214769178e-09 -3.5353795587168133e-09 1.570799693899551
+                                    children [
+                                      TouchSensor {
+                                        translation -0.05 0 0
+                                        children [
+                                          DEF TOUCH Shape {
+                                            appearance PBRAppearance {
+                                              baseColor 1 0.5 0.5
+                                              metalness 0
+                                            }
+                                            geometry Box {
+                                              size 0.01 0.01 0.01
+                                            }
+                                          }
+                                        ]
+                                        name "touch1"
+                                        boundingObject USE TOUCH
+                                        physics DEF TOUCH Physics {
+                                          density -1
+                                          mass 0.001
+                                        }
+                                      }
+                                      DEF FINGERJOINT Shape {
+                                        appearance PBRAppearance {
+                                          baseColor 1 1 0.4
+                                          metalness 0
+                                        }
+                                        geometry Cylinder {
+                                          height 0.004
+                                          radius 0.007
+                                        }
+                                      }
+                                      Solid {
+                                        translation -0.03 0 0
+                                        rotation 0 0 1 -1.5707996938995747
+                                        children [
+                                          DEF FINGER Shape {
+                                            appearance PBRAppearance {
+                                              metalness 0
+                                            }
+                                            geometry Cylinder {
+                                              height 0.05
+                                              radius 0.002
+                                            }
+                                          }
+                                        ]
+                                        boundingObject USE FINGER
+                                        physics Physics {
+                                          density -1
+                                          mass 0.001
+                                        }
+                                      }
+                                    ]
+                                    name "solid(1)"
+                                    boundingObject USE FINGERJOINT
+                                    physics DEF LIGHT Physics {
+                                      density -1
+                                      mass 0.001
+                                    }
+                                  }
+                                }
+                                DEF FINGER2 HingeJoint {
+                                  jointParameters HingeJointParameters {
+                                    axis 0 0 -1
+                                    anchor 0.05 0 0
+                                  }
+                                  device [
+                                    RotationalMotor {
+                                      name "finger2"
+                                    }
+                                  ]
+                                  endPoint Solid {
+                                    translation 0.05 0 0
+                                    rotation -1 -2.036266360002837e-09 2.036268244110616e-09 1.5707996938995488
+                                    children [
+                                      TouchSensor {
+                                        translation 0.05 0 0
+                                        children [
+                                          DEF TOUCH Shape {
+                                            appearance PBRAppearance {
+                                              baseColor 1 0.5 0.5
+                                              metalness 0
+                                            }
+                                            geometry Box {
+                                              size 0.01 0.01 0.01
+                                            }
+                                          }
+                                        ]
+                                        name "touch2"
+                                        boundingObject USE TOUCH
+                                        physics USE LIGHT
+                                      }
+                                      DEF FINGERJOINT Shape {
+                                        appearance PBRAppearance {
+                                          baseColor 1 1 0.4
+                                          metalness 0
+                                        }
+                                        geometry Cylinder {
+                                          height 0.004
+                                          radius 0.007
+                                        }
+                                      }
+                                      Solid {
+                                        translation 0.03 0 0
+                                        rotation 0 0 1 -1.5707996938995747
+                                        children [
+                                          USE FINGER
+                                        ]
+                                        boundingObject USE FINGER
+                                        physics DEF FINGER Physics {
+                                          density -1
+                                          mass 0.001
+                                        }
+                                      }
+                                    ]
+                                    name "solid(3)"
+                                    boundingObject USE FINGERJOINT
+                                    physics Physics {
+                                      density -1
+                                      mass 0.001
+                                    }
+                                  }
+                                }
+                                DEF FINGER3 HingeJoint {
+                                  jointParameters HingeJointParameters {
+                                    anchor 0 0 0.05
+                                  }
+                                  device [
+                                    RotationalMotor {
+                                      name "finger3"
+                                    }
+                                  ]
+                                  endPoint Solid {
+                                    translation 0 0 0.05
+                                    rotation -1.9583569332749826e-09 1.958363684661189e-09 1 1.5707996938995408
+                                    children [
+                                      TouchSensor {
+                                        translation 0 0 0.05
+                                        children [
+                                          DEF TOUCH Shape {
+                                            appearance PBRAppearance {
+                                              baseColor 1 0.5 0.5
+                                              metalness 0
+                                            }
+                                            geometry Box {
+                                              size 0.01 0.01 0.01
+                                            }
+                                          }
+                                        ]
+                                        name "touch3"
+                                        boundingObject USE TOUCH
+                                        physics USE LIGHT
+                                      }
+                                      DEF FINGERJOINT Shape {
+                                        appearance PBRAppearance {
+                                          baseColor 1 1 0.4
+                                          metalness 0
+                                        }
+                                        geometry Cylinder {
+                                          height 0.004
+                                          radius 0.007
+                                        }
+                                      }
+                                      Solid {
+                                        translation 0 0 0.03
+                                        rotation 1 0 0 1.5707996938995747
+                                        children [
+                                          DEF FINGER Shape {
+                                            appearance PBRAppearance {
+                                              metalness 0
+                                            }
+                                            geometry Cylinder {
+                                              height 0.05
+                                              radius 0.002
+                                            }
+                                          }
+                                        ]
+                                        boundingObject USE FINGER
+                                        physics USE LIGHT
+                                      }
+                                    ]
+                                    name "solid(4)"
+                                    boundingObject USE FINGERJOINT
+                                    physics Physics {
+                                      density -1
+                                      mass 0.001
+                                    }
+                                  }
+                                }
+                                DEF FINGER4 HingeJoint {
+                                  jointParameters HingeJointParameters {
+                                    axis -1 0 0
+                                    anchor 0 0 -0.05
+                                  }
+                                  device [
+                                    RotationalMotor {
+                                      name "finger4"
+                                    }
+                                  ]
+                                  endPoint Solid {
+                                    translation 0 0 -0.05
+                                    rotation 3.221487595352974e-09 -3.2214927766493653e-09 1 1.570799693899547
+                                    children [
+                                      TouchSensor {
+                                        translation 0 0 -0.05
+                                        children [
+                                          DEF TOUCH Shape {
+                                            appearance PBRAppearance {
+                                              baseColor 1 0.5 0.5
+                                              metalness 0
+                                            }
+                                            geometry Box {
+                                              size 0.01 0.01 0.01
+                                            }
+                                          }
+                                        ]
+                                        name "touch4"
+                                        boundingObject USE TOUCH
+                                        physics USE LIGHT
+                                      }
+                                      DEF FINGERJOINT Shape {
+                                        appearance PBRAppearance {
+                                          baseColor 1 1 0.4
+                                          metalness 0
+                                        }
+                                        geometry Cylinder {
+                                          height 0.004
+                                          radius 0.007
+                                        }
+                                      }
+                                      Solid {
+                                        translation 0 0 -0.03
+                                        rotation 1 0 0 1.5707996938995747
+                                        children [
+                                          USE FINGER
+                                        ]
+                                        boundingObject USE FINGER
+                                        physics USE LIGHT
+                                      }
+                                    ]
+                                    name "solid(5)"
+                                    boundingObject USE FINGERJOINT
+                                    physics Physics {
+                                      mass 0.001
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                            DEF PALM Shape {
+                              appearance PBRAppearance {
+                                metalness 0
+                              }
+                              geometry Cylinder {
+                                height 0.005
+                                radius 0.05
+                              }
+                            }
+                          ]
+                          name "solid(2)"
+                          boundingObject USE PALM
+                          physics Physics {
+                            density -1
+                            mass 0.001
+                          }
+                        }
+                      ]
+                    }
+                    DEF ROD Solid {
+                      translation 0.05 0 0
+                      rotation 0 0 1 1.5708003061004252
+                      children [
+                        DEF ROD Shape {
+                          appearance PBRAppearance {
+                            baseColor 0 0.2 1
+                            metalness 0
+                          }
+                          geometry Cylinder {
+                            height 0.1
+                            radius 0.004
+                          }
+                        }
+                      ]
+                      boundingObject USE ROD
+                      physics Physics {
+                        density -1
+                        mass 0.001
+                      }
+                    }
+                    DEF HINGE Shape {
+                      appearance PBRAppearance {
+                        baseColor 1 0.3 0
+                        metalness 0
+                      }
+                      geometry DEF JOINT Cylinder {
+                        height 0.004
+                        radius 0.007
+                      }
+                    }
+                  ]
+                  name "solid(1)"
+                  boundingObject USE HINGE
+                  physics Physics {
+                  }
+                }
+              }
+              DEF ROD Solid {
+                translation 0.06 0 0
+                rotation 0 0 1 1.5708003061004252
+                children [
+                  DEF ROD Shape {
+                    appearance PBRAppearance {
+                      baseColor 0 0.2 1
+                      metalness 0
+                    }
+                    geometry Cylinder {
+                      height 0.12
+                      radius 0.004
+                    }
+                  }
+                ]
+                boundingObject USE ROD
+                physics Physics {
+                }
+              }
+              DEF HINGE Shape {
+                appearance PBRAppearance {
+                  baseColor 1 0.3 0
+                  metalness 0
+                }
+                geometry DEF HINGE Cylinder {
+                  height 0.004
+                  radius 0.007
+                }
+              }
+            ]
+            name "solid(4)"
+            boundingObject USE HINGE
+            physics DEF HINGE Physics {
+              density -1
+              mass 0.001
+            }
+          }
+        }
+        DEF ROD Solid {
+          translation 0 0.12 0
+          children [
+            DEF ROD Shape {
+              appearance PBRAppearance {
+                baseColor 0 0.2 1
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.1
+                radius 0.004
+              }
+            }
+          ]
+          name "solid(3)"
+          boundingObject USE ROD
+          physics DEF LIGHT Physics {
+            density -1
+            mass 0.001
+          }
+        }
+        DEF BASE Solid {
+          translation 0 0.084 0
+          children [
+            DEF BASE Shape {
+              appearance PBRAppearance {
+                baseColor 0 0.7 0
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.005
+                radius 0.03
+              }
+            }
+          ]
+          name "solid(2)"
+          boundingObject USE BASE
+          physics Physics {
+            density -1
+            mass 0.001
+          }
+        }
+      ]
+    }
+  ]
+  boundingObject Transform {
+    translation 0 0.0415 0
+    children [
+      USE BODY
+    ]
+  }
+  physics DEF BODY Physics {
+    density -1
+    mass 5
+  }
+  controller "collect_controller"
+}

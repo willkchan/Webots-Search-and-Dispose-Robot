@@ -12,15 +12,13 @@
 #define LEFT 0
 #define RIGHT 1
 #define MIDDLE 2
-#define FAR_RIGHT 3
-#define FAR_LEFT 4
 #define BOTTOM 0
 #define TOP 1
 #define X 0
 #define Z 2
-#define SPEED 6
+#define SPEED 10
 #define HINGE_SPEED 1
-#define HINGE_SPEED_TOP 1.5
+#define HINGE_SPEED_TOP 2
 #define FINGER_SPEED 10
 #define PI M_PI
 #define NORTH PI/2
@@ -118,15 +116,15 @@ void avoidObstacle(WbDeviceTag *wheels, double *distanceValues) {
 }
 
 void repositionHead(WbDeviceTag *wheels, double *distanceValues) {
-    if (distanceValues[MIDDLE] < 700) {
+    if (distanceValues[MIDDLE] < 850) {
         wb_motor_set_velocity(wheels[LEFT], -1);
-        wb_motor_set_velocity(wheels[LEFT], -1);
-        wb_robot_step(500);
+        wb_motor_set_velocity(wheels[RIGHT], -1);
+        wb_robot_step(100);
     }
-    else if(distanceValues[FAR_LEFT] < 950 || distanceValues[LEFT] < 950) {
+    else if(distanceValues[LEFT] < 950) {
         rotateCCW(wheels);
     }
-    else if(distanceValues[FAR_RIGHT] < 950 || distanceValues[RIGHT] < 950) {
+    else if(distanceValues[RIGHT] < 950) {
         rotateCW(wheels);
     }
 }
@@ -166,10 +164,10 @@ int main(int argc, char **argv) {
     radar = wb_robot_get_device("radar");
     wb_radar_enable(radar, TIME_STEP);
 
-    WbDeviceTag gps = wb_robot_get_device("gps");
+    gps = wb_robot_get_device("gps");
     wb_gps_enable(gps, TIME_STEP);
 
-    WbDeviceTag compass = wb_robot_get_device("compass");
+    compass = wb_robot_get_device("compass");
     wb_compass_enable(compass, TIME_STEP);
 
     while (wb_robot_step(TIME_STEP) != -1) {
@@ -180,7 +178,6 @@ int main(int argc, char **argv) {
             touchValues[i] = wb_touch_sensor_get_value(touch[i]);
         }
         int numOfObjects = wb_radar_get_number_of_targets(radar);
-
 
         if(state == WANDERING) {
             if (numOfObjects > 0 || !isClose(distanceValues)) {
@@ -195,7 +192,7 @@ int main(int argc, char **argv) {
             }
         }
         else if(state == POSITIONING) {
-            if(distanceValues[LEFT] < 900 || distanceValues[RIGHT] < 900 || distanceValues[MIDDLE] > 875) {
+            if(distanceValues[LEFT] < 950 || distanceValues[RIGHT] < 950 || distanceValues[MIDDLE] > 950) {
                 repositionHead(wheels, distanceValues);
             }
             else {
@@ -222,6 +219,7 @@ int main(int argc, char **argv) {
                 wb_robot_step(TIME_STEP);
                 wb_motor_set_position(hinge[i], 0);
             }
+            wb_robot_step(2000);
             state = RETURNING;
         }
         else if(state == RETURNING) {
@@ -286,12 +284,13 @@ int main(int argc, char **argv) {
                 driveStraight(wheels);
                 state = RETURNING;
             }
-            else if(distanceValues[MIDDLE] > 850) {
+            else if(distanceValues[MIDDLE] > 875) {
                 repositionHead(wheels, distanceValues);
             }
             else if(isSomeInContact(touchValues)) {
                 stopWheels(wheels);
                 wb_motor_set_position(hinge[TOP], PI/2);
+                wb_robot_step(500);
                 for(i = 0; i < 4; i++) {
                     wb_motor_set_position(finger[i], 0);
                 }
@@ -301,6 +300,7 @@ int main(int argc, char **argv) {
                 wb_motor_set_position(hinge[TOP], 0);
                 wb_robot_step(TIME_STEP);
                 grabAngle = 0;
+                wb_robot_step(2000);
                 state = WANDERING;
             }
         }

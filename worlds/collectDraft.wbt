@@ -2,8 +2,8 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.4882711589401488 0.7736606162481928 0.4037827710709192 1.6373751990749705
-  position 1.9123533291790042 3.122275703151598 1.0776547044362275
+  orientation 0.42086361133905226 0.813424520229981 0.40151509378761396 4.553621773758503
+  position -2.993769748402325 3.6973766869391476 -0.03962875182130782
 }
 TexturedBackground {
 }
@@ -11,6 +11,7 @@ TexturedBackgroundLight {
 }
 RectangleArena {
   floorSize 2 2
+  wallHeight 0.3
 }
 DEF BOX Solid {
   translation 0.204211 0.434664 -0.896728
@@ -32,7 +33,7 @@ DEF BOX Solid {
   radarCrossSection 1
 }
 DEF BOX Solid {
-  translation -0.925091 0.0326735 -0.935143
+  translation -0.257554 0.0326735 -0.729087
   children [
     DEF BOX Shape {
       appearance PBRAppearance {
@@ -52,8 +53,8 @@ DEF BOX Solid {
   }
   radarCrossSection 1
 }
-DEF BALL Solid {
-  translation 0.636626 0.1 0.51381
+Solid {
+  translation 0.318978 0.1 0.511564
   children [
     DEF BALL Shape {
       appearance PBRAppearance {
@@ -61,71 +62,12 @@ DEF BALL Solid {
         metalness 0
       }
       geometry Sphere {
-        radius 0.04
+        radius 0.05
       }
     }
   ]
   name "solid(2)"
-  boundingObject USE BALL
-  physics Physics {
-  }
-  radarCrossSection 1
-}
-DEF BALL Solid {
-  translation 0.232139 0.1 -0.584142
-  children [
-    DEF BALL Shape {
-      appearance PBRAppearance {
-        baseColor 1 0.3 0
-        metalness 0
-      }
-      geometry Sphere {
-        radius 0.04
-      }
-    }
-  ]
-  name "solid(3)"
-  boundingObject USE BALL
-  physics Physics {
-  }
-  radarCrossSection 1
-}
-DEF CAPSULE Solid {
-  translation -0.415161 0.3 0.359342
-  children [
-    DEF CAPSULE Shape {
-      appearance PBRAppearance {
-        baseColor 0 1 0.4
-        metalness 0
-      }
-      geometry Capsule {
-        height 0.04
-        radius 0.03
-      }
-    }
-  ]
-  name "solid(4)"
-  boundingObject USE CAPSULE
-  physics Physics {
-  }
-  radarCrossSection 1
-}
-DEF CAPSULE Solid {
-  translation -0.126104 0.3 0.649743
-  children [
-    DEF CAPSULE Shape {
-      appearance PBRAppearance {
-        baseColor 0 1 0.4
-        metalness 0
-      }
-      geometry Capsule {
-        height 0.04
-        radius 0.03
-      }
-    }
-  ]
-  name "solid(5)"
-  boundingObject USE CAPSULE
+  boundingObject USE BOX
   physics Physics {
   }
   radarCrossSection 1
@@ -151,8 +93,7 @@ DEF TRASHBIN SolidPipe {
   }
 }
 Robot {
-  translation -0.766032 -1.77636e-15 0.674561
-  rotation 0 1 0 1.58347
+  translation 0.653489 -5.55114e-16 0.690651
   children [
     Transform {
       translation 0 0.0415 0
@@ -182,8 +123,8 @@ Robot {
         }
       ]
       endPoint Solid {
-        translation 0.05000054844245359 0.025810750625136054 1.2054995810399476e-06
-        rotation -0.0714406236742734 -0.07102642489304549 -0.9949128023379453 1.569981794029658
+        translation 0.050000548442451886 0.025810750625136054 1.2054995810404355e-06
+        rotation -0.07144062367427607 -0.07102642489304525 -0.9949128023379451 1.5699817940296137
         children [
           DEF WHEEL Shape {
             appearance PBRAppearance {
@@ -215,8 +156,8 @@ Robot {
         }
       ]
       endPoint Solid {
-        translation -0.05000068743730525 0.025811031362222292 4.133476380438646e-07
-        rotation -0.07382039037636985 0.07382286986036544 0.9945354361963479 1.5762530595880277
+        translation -0.05000068743730436 0.02581103136222229 4.1334763805381215e-07
+        rotation -0.07382039037636993 0.07382286986036375 0.9945354361963481 1.5762530595879978
         children [
           USE WHEEL
         ]
@@ -258,6 +199,23 @@ Robot {
         USE DS_SENSOR
       ]
       name "ds_middle"
+      aperture 1.578
+    }
+    DistanceSensor {
+      translation -0.041 0.06 0
+      rotation 0 1 0 -3.141592653589793
+      children [
+        USE DS_SENSOR
+      ]
+      name "ds_far_right"
+      aperture 1.578
+    }
+    DistanceSensor {
+      translation 0.041 0.06 0
+      children [
+        USE DS_SENSOR
+      ]
+      name "ds_far_left"
       aperture 1.578
     }
     Radar {
@@ -310,8 +268,8 @@ Robot {
             }
           ]
           endPoint Solid {
-            translation -7.357872644497796e-09 0.170000418117142 0.00033245832731640157
-            rotation 3.159448331636172e-07 -3.030044574446502e-07 0.9999999999999042 1.5707996939035977
+            translation -7.3578726444977744e-09 0.17000041810184838 0.00033245832733564643
+            rotation 3.3894880254082466e-07 -3.2600850427884803e-07 0.9999999999998894 1.570799693903572
             children [
               DEF HINGE2 HingeJoint {
                 jointParameters HingeJointParameters {
@@ -325,7 +283,7 @@ Robot {
                 ]
                 endPoint Solid {
                   translation 0.12 0 0
-                  rotation 1 2.5363265690501298e-17 -2.661747789691154e-09 3.141592653589793
+                  rotation 1 2.5363265630852123e-17 -1.688122913271032e-09 3.141592653589793
                   children [
                     DEF GRIPPER Transform {
                       translation 0.1 0 0
@@ -347,7 +305,7 @@ Robot {
                                   ]
                                   endPoint Solid {
                                     translation -0.05 0 0
-                                    rotation -1 3.535389214769178e-09 -3.5353795587168145e-09 1.570799693899551
+                                    rotation -1 9.787074727623221e-09 -9.787044021526968e-09 1.5707996938995494
                                     children [
                                       TouchSensor {
                                         translation -0.05 0 0
@@ -420,7 +378,7 @@ Robot {
                                   ]
                                   endPoint Solid {
                                     translation 0.05 0 0
-                                    rotation -1 -2.036266360002837e-09 2.036268244110616e-09 1.5707996938995488
+                                    rotation -0.9999999999999997 -1.0841254469344524e-08 1.0841226706185788e-08 1.5707996938995488
                                     children [
                                       TouchSensor {
                                         translation 0.05 0 0
@@ -481,7 +439,7 @@ Robot {
                                   ]
                                   endPoint Solid {
                                     translation 0 0 0.05
-                                    rotation -1.958356933274983e-09 1.958363684661189e-09 1 1.5707996938995408
+                                    rotation -7.430637703471069e-09 7.430662880630235e-09 1 1.5707996938995397
                                     children [
                                       TouchSensor {
                                         translation 0 0 0.05
@@ -548,7 +506,7 @@ Robot {
                                   ]
                                   endPoint Solid {
                                     translation 0 0 -0.05
-                                    rotation 3.221487595352974e-09 -3.2214927766493653e-09 1 1.570799693899547
+                                    rotation 1.0147781779382226e-08 -1.0147810282275237e-08 0.9999999999999998 1.5707996938995468
                                     children [
                                       TouchSensor {
                                         translation 0 0 -0.05
